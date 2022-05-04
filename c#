@@ -1,0 +1,174 @@
+package lab_6;
+import java.util.Scanner;
+
+//import labr6.Student;
+//import labr6.Student.Man;
+public class Student {
+	private Man man;
+	int kurs;
+    static int counter;
+    public class Man
+    {
+    	private String name;
+    private int age;
+    //private boolean sex;
+    private double weight;
+    private static int counter = 0;
+    public Man()
+    {
+        name = "";
+        age = 0;
+        //sex = 0;
+        weight = 0;
+        counter++;
+
+    }
+    public Man(String name, int age, double weight)
+    {
+    	this.name = name;
+        this.age = age;
+    this.weight = weight;
+        counter++;
+    }
+    public Man(Man m)
+    {
+    	this.name = m.name;
+        this.age = m.age;
+    this.weight = m.weight;
+    counter++;
+
+    }
+    public int GetAge() { return this.age; }
+    public String GetName() { return this.name; }
+    public double GetWeight() { return this.weight; }
+    public static int getCounter(){ return counter; }
+    public void setAge(int age) { this.age = age;}
+    public void setName(String name) { this.name = name; }
+    public void SetWeight(double weight) { this.weight = weight; }
+    public boolean Init(String name, int age, double weight)
+    { if (age > 0 && age < 100  && weight > 0)
+    { setName(name);
+    setAge(age);
+    SetWeight(weight);
+    return true;
+    }
+    return false;
+    }
+    
+    public void Display()
+
+    {
+    	System.out.println("Name: "+name+","+ "age:"+ age +","+"weight:" +weight);
+    }
+
+    public void Read()
+    {
+    	Scanner scan = new Scanner("System.in");
+        String n;
+        int a;
+        double b;
+        do
+        {
+        	System.out.println("Name: ");
+            n = scan.nextLine();
+            System.out.println("Age: ");
+            a = scan.nextInt();
+            System.out.println("Weight: ");
+            b = scan.nextInt();
+        } while (!Init(n, a, b));
+    }
+    //public static Man operatorPlus(Man m) { return new Man(m.name, m.age++, m.weight++); }
+    //public static Man operatorMinus (Man m) { return new Man(m.name, m.age--, m.weight--); }
+
+    public String ToString()
+    {
+        return "Man: [name: " + this.name + ", "
+      + "age: " + this.age + ", "
+      + "weight:" + this.weight + "]";
+    }
+}
+public Student()
+{
+    this.man = new Man();
+    this.kurs= 0;
+    counter++;
+}
+public Student(Man man, int kurs)
+{
+    this.man = man;
+    this.kurs = kurs;
+    counter++;
+}
+public Student(Student student)
+{
+    this.man = student.man;
+    this.kurs = student.kurs;
+    counter++;
+}
+public Student(String name, int age, double weight, int kurs)
+{
+	this.kurs = kurs;
+    this.man = new Man(name, age, weight);
+    counter++;
+}
+public Man GetMan() { return this.man; }
+public int GetKurs() { return this.kurs; }
+public static int GetCounter() { return counter; }
+public void SetMan(Man man) { this.man = man; }
+public void SetSpec(int kurs) { this.kurs = kurs; }
+public void Display()
+{
+	 System.out.println("kurs:" + this.kurs);
+    this.man.Display();
+}
+public void Read()
+{
+	Scanner scan = new Scanner("System.in");
+    String name;
+    int age,kur;
+    double weight;
+    do
+    {
+   	 System.out.println("Name: ");
+        name = scan.nextLine();;
+        System.out.println("Age: ");
+        age = scan.nextInt();
+        System.out.println("Vaga: ");
+        weight  =scan.nextInt();
+        System.out.println("kurs: ");
+        kur = scan.nextInt();;
+    } while (!this.man.Init(name, age,weight));
+    this.kurs = kur;
+}
+ /*public static Student operatorPlus(Student student)
+ {
+    return new Student(student.man++, student.kurs++);
+ }
+ public static Student operatorMinus(Student student)
+ {
+    return new Student(student.man--, student.kurs--);
+}*/
+public String ToString()
+{
+    return "Student: [" + this.man.ToString() + ", "
+    + "kurs: " + this.kurs +
+    "]";
+}
+
+}
+
+
+package lab_6;
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		Student s1 = new Student();
+        System.out.println("Student:" + Student.GetCounter());
+        System.out.println("Student::Man:" + Student.Man.getCounter());
+        Student s2 = new Student("Vitalik", 25, 43, 2);
+        System.out.println("Student local: " + Student.GetCounter());
+        System.out.println("Student::Man local:" + Student.Man.getCounter());
+        System.out.println("s2: " + s2.ToString());
+	}
+}
